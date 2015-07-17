@@ -35,7 +35,7 @@ Brew is a useful package manage tool to Mac, just like apt-get to Ubuntu, or yum
   When installation finish, do something following the output instruction, here are something important:
     Change the CLI path by add below commend to ~/.bash_profile (create it if not exist): 
       export PATH="$(brew –prefix josegonzalez/php/php54)/bin:$PATH"
-	  Change Apache PHP module by add below commend to /etc/apache2/http.conf:
+    Change Apache PHP module by add below commend to /etc/apache2/http.conf:
       LoadModule php5_module /usr/local/Cellar/php54/5.4.43_2/libexec/apache2/libphp5.so
   Restart Apache, then add index.php to webroot:
     <?php
