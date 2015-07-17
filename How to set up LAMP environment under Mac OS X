@@ -1,0 +1,61 @@
+  It is easy to set up lamp environment under Mac OS X, there are integrated software to use such as XAMPP and MAMP. Unfortunately integrated ways have disadvantage on personal special configuration and further extensions. Since Mac OS X has already integrated Apache and PHP, it is easy to setup the environment manually by using brew.
+Brew is a useful package manage tool to Mac, just like apt-get to Ubuntu, or yum to fedora.
+  You can install brew by running commend: ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)", the link may expire, just take care of the output and follow that instructions.
+  Here are some useful brew commend: 
+    (1)brew install xxx 
+    (2)brew uninstall xxx 
+    (3)brew list 
+    (4)brew update xxx…
+  If you choose Apache as webserver, Mac OS X has prepared it for you. You can control it thorough these commends: 
+    (1)sudo apachectl start 
+    (2)sudo apachectl restart 
+    (3)sudo apachectl stop.
+  The only thing you should do is to change the webroot directory. There is a directory Sites (create one if none) under /home, whose visit path is http://localhost/~user_name, wich is not so convenient to use. You can change the DocumentRoot in /etc/apache2/http.conf like this: 
+    DocumentRoot "/Users/username/Sites"
+    <Directory />
+        Options Indexes MultiViews
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+  In my case, it is:
+    DocumentRoot "/Users/levin.lin/Sites"
+    <Directory "/Users/levin.lin/Sites">
+        Options Indexes MultiViews
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+  Apache is listening on port 80 by default wich can be changed.
+  PHP is also provided by  Mac OS X, whose version may not match your need. You can install one of certain version on your own by brew, the installation will take a while:
+    brew update
+    brew tap homebrew/dupes
+    brew tap josegonzalez/homebrew-php
+    brew install php54
+  When installation finish, do something following the output instruction, here are something important:
+    Change the CLI path by add below commend to ~/.bash_profile (create it if not exist): 
+      export PATH="$(brew –prefix josegonzalez/php/php54)/bin:$PATH"
+	  Change Apache PHP module by add below commend to /etc/apache2/http.conf:
+      LoadModule php5_module /usr/local/Cellar/php54/5.4.43_2/libexec/apache2/libphp5.so
+  Restart Apache, then add index.php to webroot:
+    <?php
+        echo "hello levin\n";
+    ?>
+  Access from browser: http://localhost:8099
+ 
+  Enjoy it☺
+
+  Trouble shooting:
+    (1)	/private/var/log/apache2/error_log  tells: 
+      AH01630: client denied by server configuration
+      Check your Apache version, if it is 2.4 (check by sudo apachectl -v), configure DocumentRoot like this:
+        DocumentRoot "/Users/levin.lin/Sites"
+        <Directory "/Users/levin.lin/Sites">
+            AllowOverride All
+            Options Indexes MultiViews FollowSymLinks
+            Require all granted
+        </Directory>
+    (2)	/private/var/log/apache2/error_log  tells: 
+      PHP Warning:  Unknown: failed to open stream
+      Allow PHP to access the file:
+        sudo chmod -R +rw Sites/
