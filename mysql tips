@@ -14,3 +14,7 @@ CREATE TABLE `zzz` (
 (3)alter table `zzz` change `xxx_id` `yyy_id` int(11) not null comment 'yyy id related to yyy.yyy_id';
 (4)alter table `zzz` add index `fk_y_yy_yyy_id_idx`(`yyy_id`);
 (5)alter table `zzz` add constraint `fk_y_yy_yyy_id` foreign key(`yyy_id`) references `yyy`(`yyy_id`) on delete no action on update no action;
+
+2. mysqldump
+
+mysqldump -u root -p xxdb > /path/to/sql/xxdb_backup.sql
