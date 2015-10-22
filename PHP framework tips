@@ -1,0 +1,5 @@
+[codeigniter]
+
+1.log path setup
+application/config/config.php
+$config['log_path'] = '/full/server/path/to/logs/';
