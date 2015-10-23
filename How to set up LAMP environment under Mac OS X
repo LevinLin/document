@@ -42,7 +42,76 @@ Brew is a useful package manage tool to Mac, just like apt-get to Ubuntu, or yum
         echo "hello levin\n";
     ?>
   Access from browser: http://localhost:8099
- 
+  
+  [MySql related]
+  reinstall mysql in Mac
+  refer link: https://coderwall.com/p/os6woq/uninstall-all-those-broken-versions-of-mysql-and-re-install-it-with-brew-on-mac-mavericks
+  
+  [remove old mysql]
+  ps -ax | grep mysql
+    5055 ttys000    0:00.00 grep mysql
+  brew remove mysql
+    Uninstalling /usr/local/Cellar/mysql/5.6.25... (9835 files, 339M)
+  brew cleanup
+    Removing: /Library/Caches/Homebrew/php54-5.4.43... (12M)
+  rm -rf /usr/local/var/mysql/
+  
+  [install new mysql]
+  brew install mysql
+    ==> Downloading https://homebrew.bintray.com/bottles/mysql-5.6.25.yosemite.bottle.tar.gz
+    Already downloaded: /Library/Caches/Homebrew/mysql-5.6.25.yosemite.bottle.tar.gz
+    ==> Pouring mysql-5.6.25.yosemite.bottle.tar.gz
+    ==> Caveats
+    A "/etc/my.cnf" from another install may interfere with a Homebrew-built
+    server starting up correctly.
+
+    To connect:
+      mysql -uroot
+
+    To have launchd start mysql at login:
+      ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+    Then to load mysql now:
+      launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+    Or, if you don't want/need launchctl, you can just run:
+      mysql.server start
+    Error: The `brew link` step did not complete successfully
+    The formula built, but is not symlinked into /usr/local
+    Could not symlink bin/innochecksum
+    /usr/local/bin is not writable.
+
+    You can try again using:
+    brew link mysql
+    ==> /usr/local/Cellar/mysql/5.6.25/bin/mysql_install_db --verbose --user=levin.lin --basedir=/usr/local/Cellar/mysql/5.6.25 --datadir=/usr/local/var/mysql --
+    ==> Summary
+    🍺  /usr/local/Cellar/mysql/5.6.25: 9834 files, 339M
+  ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+    /Users/**/Library/LaunchAgents/*.plist -> /usr/local/opt/mysql/*.plist
+  find /usr/local/Cellar/mysql/ -name "homebrew.mxcl.mysql.plist"
+    /usr/local/Cellar/mysql//5.6.25/homebrew.mxcl.mysql.plist
+  cp /usr/local/Cellar/mysql/5.6.25/homebrew.mxcl.mysql.plist ~/Library/LaunchAgents/
+  launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+  unset TMPDIR
+  /usr/local/Cellar/mysql/5.6.25/bin/mysql_install_db --verbose --user=levin.lin --basedir=/usr/local/Cellar/mysql/5.6.25 --datadir=/usr/local/var/mysql --tmpdir=/tmp
+    (Installtion information)
+    PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+    To do so, start the server, then issue the following commands:
+      /usr/local/Cellar/mysql/5.6.25/bin/mysqladmin -u root password 'new-password'
+      /usr/local/Cellar/mysql/5.6.25/bin/mysqladmin -u root -h LMXMN035.local password 'new-password'
+  /usr/local/Cellar/mysql/5.6.25/bin/mysql.server start
+    Starting MySQL
+    . SUCCESS! 
+  /usr/local/Cellar/mysql/5.6.25/bin/mysqladmin -u root password '**'
+  /usr/local/Cellar/mysql/5.6.25/bin/mysql -uroot -p
+    Enter password: 
+    Welcome to the MySQL monitor.  Commands end with ; or \g.
+    Your MySQL connection id is 6
+    Server version: 5.6.25 Homebrew
+    Copyright (c) 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+    Oracle is a registered trademark of Oracle Corporation and/or its
+    affiliates. Other names may be trademarks of their respective owners.
+    Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+    mysql> 
+      
   Enjoy it☺
 
   Trouble shooting:
