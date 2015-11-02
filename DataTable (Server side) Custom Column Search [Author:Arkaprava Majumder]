@@ -1,0 +1,111 @@
+In my previous post I have shown basic server side data integration with datatable.js through ajax,php and mysql. Today I will show how to customize searching in datatable 1.10. By default datatable provides a global search box. I will implement custom column search functionality for each columns. So first take a look of the demo here
+First I have added two search text fields for name and salary. Then I have also added a select box for age range.Have defined column index for every column in html5 data attribute, starting from “0”. Here is the markup:
+
+<table id="employee-grid"  cellpadding="0" cellspacing="0" border="0" class="display" width="100%">
+    <thead>
+        <tr>
+            <th>Employee name</th>
+            <th>Salary</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+    <thead>
+        <tr>
+            <td><input type="text" data-column="0"  class="search-input-text"></td>
+            <th><input type="text" data-column="1"  class="search-input-text"></td>
+            <td>
+                <select data-column="2"  class="search-input-select">
+                    <option value="">(Select a range)</option>
+                    <option value="19-30">19 - 30</option>
+                    <option value="31-66">31 - 66</option>
+                </select>
+            </td>
+        </tr>
+    </thead>
+</table>
+
+Then I have modified initialization of the datatable.(If you have facing any problem to integrate the datatable, please take look of my first post about datatable).
+After initialize I have hide the global search box by
+
+$("#employee-grid_filter").css("display","none");
+
+Then I have taken input of the search value and column index through keyup, click and change event.
+
+$('.search-input-text').on( 'keyup click', function () {   // for text boxes
+    var i =$(this).attr('data-column');  // getting column index
+    var v =$(this).val();  // getting search input value
+    dataTable.columns(i).search(v).draw();
+} );
+$('.search-input-select').on( 'change', function () {   // for select box
+    var i =$(this).attr('data-column');
+    var v =$(this).val();
+    dataTable.columns(i).search(v).draw();
+} );
+
+By dataTable.columns(i).search(v).draw(); we can draw or request for search result by sending column name and value in “search()” function with “datatable” object variable which has been created at the time of initialization.
+In server side we can fetch search value through column index like “$requestData[‘columns’][0][‘search’][‘value’]”.
+I have sent four parameters (ie: draw ,recordsTotal, recordsFiltered, data) in json output.
+
+  > draw is request/draw number sent from client side.
+  > recordsTotal is numbers of total records in your table.
+  > recordsFiltered is calculating as per search parameters, When there is no search parameter, then total numbers filtered data is same as total number of the records, other wise it will be set as per search result with out limit parameter.
+  > data is your result sets.
+
+// storing  request (ie, get/post) global array to a variable
+$requestData= $_REQUEST;
+ 
+$columns = array(
+// datatable column index  => database column name
+    0 =>'employee_name',
+    1 => 'employee_salary',
+    2=> 'employee_age'
+);
+// getting total number records without any search
+$sql = "SELECT employee_name, employee_salary, employee_age ";
+$sql.=" FROM employee";
+$query=mysqli_query($conn, $sql) or die("employee-grid-data.php: get employees");
+$totalData = mysqli_num_rows($query);
+$totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
+ 
+$sql = "SELECT employee_name, employee_salary, employee_age  ";
+$sql.=" FROM employee WHERE 1 = 1";
+ 
+// getting records as per search parameters
+if( !empty($requestData['columns'][0]['search']['value']) ){   //name
+    $sql.=" AND employee_name LIKE '".$requestData['columns'][0]['search']['value']."%' ";
+}
+if( !empty($requestData['columns'][1]['search']['value']) ){  //salary
+    $sql.=" AND employee_salary LIKE '".$requestData['columns'][1]['search']['value']."%' ";
+}
+if( !empty($requestData['columns'][2]['search']['value']) ){ //age
+    $rangeArray = explode("-",$requestData['columns'][2]['search']['value']);
+    $minRange = $rangeArray[0];
+    $maxRange = $rangeArray[1];
+    $sql.=" AND ( employee_age >= '".$minRange."' AND  employee_age <= '".$maxRange."' ) ";
+}
+$query=mysqli_query($conn, $sql) or die("employee-grid-data.php: get employees");
+$totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result.
+ 
+$sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."   LIMIT ".$requestData['start']." ,".$requestData['length']."   ";  // adding length
+ 
+$query=mysqli_query($conn, $sql) or die("employee-grid-data.php: get employees");
+ 
+$data = array();
+while( $row=mysqli_fetch_array($query) ) {  // preparing an array
+    $nestedData=array(); 
+ 
+    $nestedData[] = $row["employee_name"];
+    $nestedData[] = $row["employee_salary"];
+    $nestedData[] = $row["employee_age"];
+ 
+    $data[] = $nestedData;
+}
+ 
+$json_data = array(
+            "draw"            => intval( $requestData['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw.
+            "recordsTotal"    => intval( $totalData ),  // total number of records
+            "recordsFiltered" => intval( $totalFiltered ), // total number of records after searching, if there is no searching then totalFiltered = totalData
+            "data"            => $data   // total data array
+            );
+ 
+echo json_encode($json_data);  // send data as json format
