@@ -18,3 +18,7 @@ CREATE TABLE `zzz` (
 2. mysqldump
 
 mysqldump -u root -p xxdb > /path/to/sql/xxdb_backup.sql
+
+3.MYSQLWorkbench
+
+a useful tool
