@@ -1,0 +1,26 @@
+1.install go env on Mac
+
+> brew install go
+> vi /Users/levin.lin/.bash_profile
+  # for golang
+  export PATH="/usr/local/Cellar/go/1.4.2/bin:$PATH"
+  export GOPATH="$HOME/GoRoot/go"
+  export GOROOT="/usr/local/Cellar/go/1.4.2/libexec"
+  export GOBIN="$GOPATH/bin"
+  export PATH="$GOBIN:$PATH"
+> go env
+  GOARCH="amd64"
+  GOBIN="/Users/levin.lin/GoRoot/go/bin"
+  GOCHAR="6"
+  GOEXE=""
+  GOHOSTARCH="amd64"
+  GOHOSTOS="darwin"
+  GOOS="darwin"
+  GOPATH="/Users/levin.lin/GoRoot/go"
+  GORACE=""
+  GOROOT="/usr/local/Cellar/go/1.4.2/libexec"
+  GOTOOLDIR="/usr/local/Cellar/go/1.4.2/libexec/pkg/tool/darwin_amd64"
+  CC="clang"
+  GOGCCFLAGS="-fPIC -m64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmessage-length=0 -fno-common"
+  CXX="clang++"
+  CGO_ENABLED="1"
