@@ -1,0 +1,10 @@
+1.Sublime Test2
+
+[download link] 
+  http://www.sublimetext.com/2
+[install plugins] 
+  [.DocBlockr] 
+    [.. download link]
+      https://github.com/spadgos/sublime-jsdocs
+    [.. installation]
+      click "Preferences"->"Browse Packages…" to open pakages diractory and add DocBlockr related extracted directory
