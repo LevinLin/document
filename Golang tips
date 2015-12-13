@@ -27,4 +27,7 @@
 
 2.goroutine
 > 在Go語言中，每一個併髮的執行單元叫作一個goroutine
+> 當一個程序啓動時，其主函數卽在一個單獨的goroutine中運行，我們叫它main goroutine。新的goroutine會用go語句來創建。在語法上，go語句是一個普通的函數或方法調用前加上關鍵字go。go語句會使其語句中的函數在一個新創建的goroutine中運行。而go語句本身會迅速地完成。
+  f()    // call f(); wait for it to return
+  go f() // create a new goroutine that calls f(); don't wait
 > goroutine和綫程的本質區彆
