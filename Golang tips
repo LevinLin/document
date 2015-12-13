@@ -62,6 +62,8 @@
 
 4.select
 > Go’s select lets you wait on multiple channel operations. 
+> select is much like the usual switch but all cases here are communication operations (both reads and writes). If the operation in case can be performed than the corresponding block of code executes.
+
   package main
   import "time"
   import "fmt"
