@@ -46,7 +46,7 @@
 > Create a new channel with make(chan val-type). Channels are typed by the values they convey.
 > Send a value into a channel using the `[channel] <-` syntax
 > The `<-[channel]` syntax receives a value from the channel. 
-> By default sends and receives block until both the sender and receiver are ready. 
+> All operations on unbuffered channels block the execution until both sender and receiver are ready to communicate. That's why unbuffered channels are also called synchronous,By default sends and receives block until both the sender and receiver are ready. 
 
   package main
   import "fmt"
