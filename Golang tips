@@ -35,6 +35,7 @@
   A goroutine is a lightweight thread of execution
   
 3.channel
+> goroutine运行在相同的地址空间，因此访问共享内存必须做好同步。那么goroutine之间如何进行数据的通信呢，Go提供了一个很好的通信机制channel。
 > Channels are the pipes that connect concurrent goroutines. You can send values into channels from one goroutine and receive those values into another goroutine.
 > Channels have several characteristics: the type of element you can send through a channel, capacity (or buffer size) and direction of communication specified by a <- operator. You can allocate a channel using the built-in function make
   
