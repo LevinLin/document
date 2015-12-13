@@ -30,4 +30,5 @@
 > 當一個程序啓動時，其主函數卽在一個單獨的goroutine中運行，我們叫它main goroutine。新的goroutine會用go語句來創建。在語法上，go語句是一個普通的函數或方法調用前加上關鍵字go。go語句會使其語句中的函數在一個新創建的goroutine中運行。而go語句本身會迅速地完成。
   f()    // call f(); wait for it to return
   go f() // create a new goroutine that calls f(); don't wait
+> 當主函數返迴時，所有的goroutine都會直接打斷，程序退齣。除了從主函數退齣或者直接退齣程序之外，沒有其它的編程方法能夠讓一個goroutine來打斷另一個的執行，可以通過goroutine之間的通信來讓一個goroutine請求請求其它的goroutine，併讓其自己結束執行。
 > goroutine和綫程的本質區彆
