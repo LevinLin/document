@@ -33,3 +33,6 @@
 > 當主函數返迴時，所有的goroutine都會直接打斷，程序退齣。除了從主函數退齣或者直接退齣程序之外，沒有其它的編程方法能夠讓一個goroutine來打斷另一個的執行，可以通過goroutine之間的通信來讓一個goroutine請求請求其它的goroutine，併讓其自己結束執行。
 > goroutine和綫程的本質區彆
   A goroutine is a lightweight thread of execution
+  
+3.channel
+> Channels are the pipes that connect concurrent goroutines. You can send values into channels from one goroutine and receive those values into another goroutine.
