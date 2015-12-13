@@ -36,6 +36,13 @@
   
 3.channel
 > Channels are the pipes that connect concurrent goroutines. You can send values into channels from one goroutine and receive those values into another goroutine.
+> Channels have several characteristics: the type of element you can send through a channel, capacity (or buffer size) and direction of communication specified by a <- operator. You can allocate a channel using the built-in function make
+  
+  i := make(chan int)             // by default the capacity is 0
+  s := make(chan string, 3)       // non-zero capacity
+  r := make(<-chan bool)          // can only read from
+  w := make(chan<- []os.FileInfo) // can only write to
+  
 > Create a new channel with make(chan val-type). Channels are typed by the values they convey.
 > Send a value into a channel using the `[channel] <-` syntax
 > The `<-[channel]` syntax receives a value from the channel. 
