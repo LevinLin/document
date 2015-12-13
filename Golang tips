@@ -118,4 +118,20 @@
       }
   }
   
-6.
+6.range
+> In Golang there is a so called range expression which allows to iterate through arrays, strings, slices, maps and channels. For channels, the iteration proceeds until the channel is closed. 
+  func main() {
+      message := make(chan string)
+      count := 3
+      go func() {
+          for i := 1; i <= count; i++ {
+               message <- fmt.Sprintf("message %d", i)
+          }
+          close(message)  // notice here!! range on channel works only when channel is closed
+      }()
+      for msg := range message {
+          fmt.Println(msg)
+      }
+  }
+
+7.
