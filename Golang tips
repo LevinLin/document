@@ -24,3 +24,7 @@
   GOGCCFLAGS="-fPIC -m64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmessage-length=0 -fno-common"
   CXX="clang++"
   CGO_ENABLED="1"
+
+2.goroutine
+> 在Go語言中，每一個併髮的執行單元叫作一個goroutine
+> goroutine和綫程的本質區彆
