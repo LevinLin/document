@@ -1,0 +1,8 @@
+1.jQuery.makeArray( obj )
+  Description: 
+  > Convert an array-like object into a true JavaScript array.
+  > [obj] Type: PlainObject - Any object to turn into a native Array.
+  > Many methods, both in jQuery and in JavaScript in general, return objects that are array-like. For example, the jQuery factory function $() returns a jQuery object that has many of the properties of an array (a length, the [] array access operator, etc.), but is not exactly the same as an array and lacks some of an array's built-in methods (such as .pop() and .reverse()).
+    Note that after the conversion, any special features the object had (such as the jQuery methods in our example) will no longer be present. The object is now a plain array.
+2.  
+    
