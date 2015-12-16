@@ -4,5 +4,32 @@
   > [obj] Type: PlainObject - Any object to turn into a native Array.
   > Many methods, both in jQuery and in JavaScript in general, return objects that are array-like. For example, the jQuery factory function $() returns a jQuery object that has many of the properties of an array (a length, the [] array access operator, etc.), but is not exactly the same as an array and lacks some of an array's built-in methods (such as .pop() and .reverse()).
     Note that after the conversion, any special features the object had (such as the jQuery methods in our example) will no longer be present. The object is now a plain array.
-2.  
+  > [example]
+    var obj = eval('(' + json + ')');
+    var array = $.makeArray(obj.xxx);
+2.jQuery.inArray( value, array [, fromIndex ] )
+  > Description: Search for a specified value within an array and return its index (or -1 if not found).
+  > [fromIndex] Type: Number - The index of the array at which to begin the search. The default is 0, which will search the whole array.
+  > 如果数组第一个元素匹配value，$.inArray()返回0。因为JavaScript将0视为false(即 0 == false, 但是 0 !== false)，如果我们检查在array中存在value，我们只需要检查它是否不等于（或大于）-1
+  > [example]
+    $("input:checkbox[name='xxx']").each(function(){
+        if (jQuery.inArray($(this).val(), array) > -1) {
+            $(this).prop('checked', true);
+        };
+    });
+3.jquery set checkbox checked
+  > .prop( propertyName, value )
+  > Description: Set one or more properties for the set of matched elements.
+  > The .prop() method is a convenient way to set the value of properties—especially when setting multiple properties, using values returned by a function, or setting values on multiple elements at once. It should be used when setting selectedIndex, tagName, nodeName, nodeType, ownerDocument, defaultChecked, or defaultSelected. Since jQuery 1.6, these properties can no longer be set with the .attr() method. They do not have corresponding attributes and are only properties.
+  > Properties generally affect the dynamic state of a DOM element without changing the serialized HTML attribute. Examples include the value property of input elements, the disabled property of inputs and buttons, or the checked property of a checkbox. The .prop() method should be used to set disabled and checked instead of the .attr() method. The .val() method should be used for getting and setting value.
+  > [example 1]
+    $( "input" ).prop( "disabled", false );
+    $( "input" ).prop( "checked", true );
+    $( "input" ).val( "someValue" );
+  > [example 2]
+    $("input:checkbox[name='xxx']").each(function(){
+        if (jQuery.inArray($(this).val(), array) > -1) {
+            $(this).prop('checked', true);
+        };
+    });
     
