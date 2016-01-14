@@ -7,6 +7,7 @@
   > [example]
     var obj = eval('(' + json + ')');
     var array = $.makeArray(obj.xxx);
+    
 2.jQuery.inArray( value, array [, fromIndex ] )
   > Description: Search for a specified value within an array and return its index (or -1 if not found).
   > [fromIndex] Type: Number - The index of the array at which to begin the search. The default is 0, which will search the whole array.
@@ -17,6 +18,7 @@
             $(this).prop('checked', true);
         };
     });
+    
 3.jquery set checkbox checked
   > .prop( propertyName, value )
   > Description: Set one or more properties for the set of matched elements.
@@ -32,4 +34,99 @@
             $(this).prop('checked', true);
         };
     });
-    
+   
+4.dataTable.draw() vs. dataTable.destroy()(/destroy option)
+  > [background infomation]
+    1.there is a page consist of several filters and table for filtered result
+    2.we need to get result based on filters and then generate the table
+  > [solutions]
+    (1) simplely use dataTable( option )
+      var dataTable;
+      $('#filterButton').on( 'click', function() {
+        dataTable = $('#example').dataTable( {
+          ...
+          "ajax": {
+            "url": "...",
+            "type": "GET",
+            "cache": false,
+            "data": {         //refresh fiters while redraw table
+              filter1:$('#filter1').val(),
+              filter2:$('#filter2').val(),
+              filter3:$('#filter3').val(),
+              ...
+            }
+          },
+        } );
+      } );
+      
+      [problem] Warning: Cannot reinitialise DataTable
+      [reason] DataTables has a wide range of configuration options which can be used to customise the table at initialisation time, 
+      but only at initialisation time. After a DataTable has been initialised any attempt to use these options will result in an error.
+   
+    (2) use draw() to workaround the error depending on whether dataTable has been initialised or not
+      var dataTable = null;
+      $('#filterButton').on( 'click', function() {
+        if( null != dataTable) {
+          dataTable.draw( false );
+        } else {
+          dataTable = $('#example').dataTable( {
+            ...
+            "ajax": {
+              "url": "...",
+              "type": "GET",
+              "cache": false,
+              "data": {         //refresh fiters while redraw table
+                filter1:$('#filter1').val(),
+                filter2:$('#filter2').val(),
+                filter3:$('#filter3').val(),
+                ...
+              }
+            },
+          } );
+        }
+      } );
+      
+      [problem] branch `else` will be executed only 1 time at very first initialization of table, 
+      and branch `if` is executed from then on using draw() to renew table, unfortunately draw() is unable to catch the refreshed filters
+      [reason] filters are outside of dataTable and not catched while changed
+      
+    (3) recreate a new dataTable everytime filters is changed & triggered
+      var dataTable;
+      $('#filterButton').on( 'click', function() {
+        dataTable = $('#example').dataTable( {
+          "destroy": true,    //notice here
+          ...
+          "ajax": {
+            "url": "...",
+            "type": "GET",
+            "cache": false,
+            "data": {         //refresh fiters while redraw table
+              filter1:$('#filter1').val(),
+              filter2:$('#filter2').val(),
+              filter3:$('#filter3').val(),
+              ...
+            }
+          },
+        } );
+      } );
+      
+      Problem resolved!!
+      
+      [reason]
+        <1> DataTables provides a destroy() method to destroy an old table, so you would be able to initialise a new one in its place.
+          For example:
+          table = $('#example').DataTable( {
+            paging: false
+          } );
+          table.destroy();
+          table = $('#example').DataTable( {
+            searching: false
+          } );
+          Note that paging will be enabled in the second initialisation here as it is a completely new DataTable,
+          and paging is not explicitly disabled!
+          
+        <2> As a short-cut, like the `retrieve` option, there is also a `destroy` option that can be used to DataTables to destroy the existing table. 
+        <3> if it is essential for you to be able to dynamically enable and disable features, the destroy option can be used, 
+        noting the performance impact that this will have.
+  
+5.
