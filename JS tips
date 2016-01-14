@@ -128,5 +128,10 @@
         <2> As a short-cut, like the `retrieve` option, there is also a `destroy` option that can be used to DataTables to destroy the existing table. 
         <3> if it is essential for you to be able to dynamically enable and disable features, the destroy option can be used, 
         noting the performance impact that this will have.
+  > [references]
+    (1) dataTable.draw()
+        https://datatables.net/reference/api/draw()
+    (2) dataTable.destroy()
+        http://datatables.net/manual/tech-notes/3
   
 5.
