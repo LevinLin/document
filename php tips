@@ -1,0 +1,8 @@
+1. ‘Class DOMDocument not found’ error when using phpQuery
+  [reason]
+  it probably means that you tried to create a DOMDocument while your PHP installation doesn’t have support for manipulating XML Documents using the DOM tree, or performing XSL transformations on XML documents.
+  
+  [solution]
+  In Fedora/CentOS, you can solve this by installing the XML module for PHP by executing the following command as root:
+  [1] yum install php-xml
+  [2] reload httpd/php
