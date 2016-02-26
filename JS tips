@@ -134,4 +134,8 @@
     (2) dataTable.destroy()
         http://datatables.net/manual/tech-notes/3
   
-5.
+5.initialize the font color of the initial value of input using CSS
+    <style>
+        input[type="text"] {color:grey}
+        input[type="text"]:focus {color:black}
+    </style>
