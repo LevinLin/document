@@ -11,9 +11,10 @@
   go build
   go test ./...
   
+2.taste gnatsd
   cd /Users/levin.lin/GoRoot/go/src/github.com/nats-io/nats/examples
   (1) pub/sub example
-    details link: 
+    details link: https://github.com/LevinLin/document/blob/master/Explore.NATS.Pub.Sub.pdf
     original link:  http://nats.io/documentation/tutorials/nats-pub-sub/
   (2) request/reply example
     details link: 
