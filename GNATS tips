@@ -1,0 +1,23 @@
+1.build gnatsd from source
+  cd /Users/levin.lin/GoRoot/go/src/github.com/nats-io/
+  git clone https://github.com/nats-io/gnatsd
+  git clone https://github.com/nats-io/nuid
+  git clone https://github.com/nats-io/nats
+  
+  cd /Users/levin.lin/GoRoot/go/src/golang.org/x
+  git clone https://github.com/golang/crypto
+  
+  cd /Users/levin.lin/GoRoot/go/src/github.com/nats-io/gnatsd
+  go build
+  go test ./...
+  
+  cd /Users/levin.lin/GoRoot/go/src/github.com/nats-io/nats/examples
+  (1) pub/sub example
+    details link: 
+    original link:  http://nats.io/documentation/tutorials/nats-pub-sub/
+  (2) request/reply example
+    details link: 
+    original link: http://nats.io/documentation/tutorials/nats-req-rep/
+  (3) queueing example
+    details link: 
+    original link:  http://nats.io/documentation/tutorials/nats-queueing/
