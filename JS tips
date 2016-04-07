@@ -139,3 +139,7 @@
         input[type="text"] {color:grey}
         input[type="text"]:focus {color:black}
     </style>
+
+6.change sAjaxSource of dataTable dynamicly
+  > oTable.fnSettings().sAjaxSource='{your new url}';
+  > oTable.fnDraw();
