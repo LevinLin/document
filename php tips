@@ -6,3 +6,14 @@
   In Fedora/CentOS, you can solve this by installing the XML module for PHP by executing the following command as root:
   [1] yum install php-xml
   [2] reload httpd/php
+  
+2. "400 Bad Request" when "GET /index.php HTTP/1.1\r\n\r\n"
+  [1] You are sending an HTTP/1.1 request, according to the RFC it must include a "host" header, so it should be something like this:
+      GET / HTTP/1.1\r\n
+      Host: my-ip.herokuapp.com\r\n
+      ...\r\n
+      \r\n
+  [2] If you wish to avoid sending "Host: ...", then you should send "GET / HTTP/1.0\r\n\r\n", but not all servers allows HTTP/1.0
+  
+  
+  
