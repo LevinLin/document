@@ -37,8 +37,8 @@
       (5) restart PHP(apache)
           sudo apachectl restart
   [2] demo
-  <?php
-	class SWoole_Synchronize_Client {
+      <?php
+          class SWoole_Synchronize_Client {
 		private $client;
 	  
 		public function __construct() {
@@ -82,16 +82,16 @@
 	  	public function isConnected() {
 	  		return $this->client->isConnected();
 	  	}
-	}
+	  }
 
-	$ssc1 = new SWoole_Synchronize_Client();
-	$ssc1->connect("127.0.0.1", 8099);
-	$ssc2 = new SWoole_Synchronize_Client();
-	$ssc2->connect("127.0.0.1", 8099);
-	$ssc3 = new SWoole_Synchronize_Client();
-	$ssc3->connect("127.0.0.1", 8099);
-	$ssc4 = new SWoole_Synchronize_Client();
-	$ssc4->connect("127.0.0.1", 8099);
+          $ssc1 = new SWoole_Synchronize_Client();
+	  $ssc1->connect("127.0.0.1", 8099);
+	  $ssc2 = new SWoole_Synchronize_Client();
+	  $ssc2->connect("127.0.0.1", 8099);
+	  $ssc3 = new SWoole_Synchronize_Client();
+	  $ssc3->connect("127.0.0.1", 8099);
+	  $ssc4 = new SWoole_Synchronize_Client();
+	  $ssc4->connect("127.0.0.1", 8099);
 
 4. How To Fix Cowardly Refusing to Sudo error in Brew – Mac OS X
   http://digitizor.com/fix-cowardly-refusing-sudo-error-brew/
