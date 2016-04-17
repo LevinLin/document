@@ -15,5 +15,97 @@
       \r\n
   [2] If you wish to avoid sending "Host: ...", then you should send "GET / HTTP/1.0\r\n\r\n", but not all servers allows HTTP/1.0
   
+3. use swoole extension to implement asynchronous requests
+  [1] install swoole extension
+      (1) requirement
+          php-5.3.10 or higher
+          gcc-4.4 or higher
+          make
+          autoconf
+      (2) download swoole code from https://github.com/swoole/swoole-src/releases
+          mkdir swoole_ext
+          cd swoole_ext/
+          mv ~/Downloads/swoole-src-swoole-1.8.4-stable.zip  .
+          unzip swoole-src-swoole-1.8.4-stable.zip 
+      (3) make & install
+          phpize
+          ./configure 
+          make
+          make install
+      (4) add "extension=swoole.so" to php.ini
+          vi /usr/local/etc/php/5.4/php.ini
+      (5) restart PHP(apache)
+          sudo apachectl restart
+  [2] demo
+  <?php
+	class SWoole_Synchronize_Client {
+		private $client;
+	  
+		public function __construct() {
+		    $this->client = new swoole_client(SWOOLE_SOCK_TCP, SWOOLE_SOCK_ASYNC);
+		    $this->client->on('Connect', array($this, 'onConnect'));
+		    $this->client->on('Receive', array($this, 'onReceive'));
+		    $this->client->on('Close', array($this, 'onClose'));
+		    $this->client->on('Error', array($this, 'onError'));
+		}
+
+		public function connect($host, $port) {
+			$fp = $this->client->connect($host, $port, 1);
+			if( !$fp ) {
+				echo "Error: {$fp->errMsg}[{$fp->errCode}]\n";
+				return;
+			}
+		}
+
+		public function onReceive(swoole_client $cli, $data ) {
+			$arr = explode("\r\n\r\n", $data);
+	    	$res = json_decode($arr[1],true);
+	    	if (isset($res['active'])) {
+	    		var_dump($res);
+	    		// TODO: update database
+	    	}
+	  	}
+
+	  	public function onConnect(swoole_client $cli) {
+	  		$currenthost = gethostname();
+	  	    $cli->send("GET /checkHostHealthStatus.php HTTP/1.1\r\n");
+	  	    $cli->send("Host: $currenthost\r\n\r\n");// necessary here, Host required in HTTP1.1
+	  	}
+
+	  	public function onClose(swoole_client $cli) {
+	      //echo "Client close connection\n";
+	  	}
+
+	  	public function onError() {
+	  	}
+
+	  	public function isConnected() {
+	  		return $this->client->isConnected();
+	  	}
+	}
+
+	$ssc1 = new SWoole_Synchronize_Client();
+	$ssc1->connect("127.0.0.1", 8099);
+	$ssc2 = new SWoole_Synchronize_Client();
+	$ssc2->connect("127.0.0.1", 8099);
+	$ssc3 = new SWoole_Synchronize_Client();
+	$ssc3->connect("127.0.0.1", 8099);
+	$ssc4 = new SWoole_Synchronize_Client();
+	$ssc4->connect("127.0.0.1", 8099);
+
+4. How To Fix Cowardly Refusing to Sudo error in Brew – Mac OS X
+  http://digitizor.com/fix-cowardly-refusing-sudo-error-brew/
+  [solution]
+  Change the user and group of brew to root and revert back the ownership after "brew link" operation
+  ls -l `which brew`
+    -rwxr-xr-x  1 levin.lin  admin  791  7 16  2015 /usr/local/bin/brew
+  chown root:admin `which brew`
+  ls -l `which brew`
+    -rwxr-xr-x  1 root  admin  791  7 16  2015 /usr/local/bin/brew
+  brew link autoconf
+    Linking /usr/local/Cellar/autoconf/2.69... 19 symlinks created
+  chown levin.lin:admin `which brew`
+  ls -l `which brew`
+    -rwxr-xr-x  1 levin.lin  admin  791  7 16  2015 /usr/local/bin/brew
   
   
