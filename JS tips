@@ -143,3 +143,20 @@
 6.change sAjaxSource of dataTable dynamicly
   > oTable.fnSettings().sAjaxSource='{your new url}';
   > oTable.fnDraw();
+
+7.usage of bootstrap tooltip
+  reference: http://stackoverflow.com/questions/20545745/bootstrap-tooltip-not-showing-up
+             http://stackoverflow.com/questions/9958825/how-do-i-bind-twitter-bootstrap-tooltips-to-dynamically-created-elements
+  [1] add attributes to element
+  data-toggle='tooltip' data-placement='bottom' title='...'
+  for example:
+  <button data-toggle='tooltip' data-placement='bottom' title='...' onclick='...'>...</button>
+  [2] enable and initialize tooltip
+  $(document).ready(function(){
+      ...
+      // enable tooltip
+      $(function(){
+          $('body').tooltip({ selector: '[data-toggle="tooltip"]' });
+      });
+  });
+  
