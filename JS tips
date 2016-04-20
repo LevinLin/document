@@ -160,3 +160,8 @@
       });
   });
   
+8.use .each() to access array/object items
+  $.each(obj,function(key,value) { 
+    var html = "...";
+    $("#targetdiv").append(html);  
+  });
