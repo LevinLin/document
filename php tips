@@ -15,7 +15,7 @@
       \r\n
   [2] If you wish to avoid sending "Host: ...", then you should send "GET / HTTP/1.0\r\n\r\n", but not all servers allows HTTP/1.0
   
-3. use swoole extension to implement asynchronous requests
+3. use swoole extension to implement asynchronous requests (sadly swoole asynchronous request is only available in CLI way)
   [1] install swoole extension
       (1) requirement
           php-5.3.10 or higher
@@ -108,4 +108,10 @@
   ls -l `which brew`
     -rwxr-xr-x  1 levin.lin  admin  791  7 16  2015 /usr/local/bin/brew
   
+5. usage of Alias in apapache configuration
+  bellow configuration enable access to application via URL %{HTTP_HOST}/app/*
+  Alias /app  "/path/to/application"
+  <Directory "/path/to/application/">
+  ...
+  </Directory>
   
