@@ -115,3 +115,28 @@
   ...
   </Directory>
   
+6. strtr
+  [1] 定义和用法
+  strtr() 函数转换字符串中特定的字符。
+  > 注释：如果 from 和 to 参数的长度不同，则会被格式化为最短的长度。
+  > 语法
+    strtr(string,from,to)
+    或者：
+    strtr(string,array)
+  > 参数	描述
+    string	必需。规定要转换的字符串。
+    from	必需（除非使用数组）。规定要改变的字符。
+    to	        必需（除非使用数组）。规定要改变为的字符。
+    array	必需（除非使用 from 和 to）。数组，其中的键名是更改的原始字符，键值是更改的目标字符。
+  > 技术细节
+    返回值：	
+    返回已转换的字符。
+    如果 array 参数包含一个空字符串（""）的键名，则将返回 FALSE。
+    PHP 版本：	4+
+  > 更多实例
+    例子 1
+    把字符串 "Hello world" 替换成 "Hi earth"：
+    <?php
+        $arr = array("Hello" => "Hi", "world" => "earth");
+        echo strtr("Hello world",$arr);
+    ?>
