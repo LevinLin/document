@@ -137,7 +137,7 @@
       }
   }
 
-7. 短短bian'l短变量sheng'm短变量声明de短变量声明的keng短变量声明的坑（Short variable declarations）
+7. 短变量声明的坑（Short variable declarations）
   > A short variable declaration uses the syntax:
     ShortVarDecl = IdentifierList ":=" ExpressionList .
   > Short variable declarations may appear only inside functions. In some contexts such as the initializers for "if", "for", or "switch" statements, they can be used to declare local temporary variables.
