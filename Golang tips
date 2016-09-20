@@ -137,4 +137,17 @@
       }
   }
 
-7.
+7. 短短bian'l短变量sheng'm短变量声明de短变量声明的keng短变量声明的坑（Short variable declarations）
+  > A short variable declaration uses the syntax:
+    ShortVarDecl = IdentifierList ":=" ExpressionList .
+  > Short variable declarations may appear only inside functions. In some contexts such as the initializers for "if", "for", or "switch" statements, they can be used to declare local temporary variables.
+  > Like for, the if statement can start with a short statement to execute before the condition. Variables declared by the statement are only in scope until the end of the if. (https://tour.golang.org/flowcontrol/6)
+  > A block is a possibly empty sequence of declarations and statements within matching brace brackets. (https://golang.org/ref/spec#Blocks)
+      Block = "{" StatementList "}" .
+      StatementList = { Statement ";" } .
+    > In addition to explicit blocks in the source code, there are implicit blocks:
+    > The universe block encompasses all Go source text.
+    > Each package has a package block containing all Go source text for that package.
+    > Each file has a file block containing all Go source text in that file.
+    > Each "if", "for", and "switch" statement is considered to be in its own implicit block.
+    > Each clause in a "switch" or "select" statement acts as an implicit block.
