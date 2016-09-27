@@ -165,3 +165,23 @@
     var html = "...";
     $("#targetdiv").append(html);  
   });
+
+9.initialize dataTable 
+  > http://datatables.club/manual/api.html
+  一个datatables实例可以通过下面三个方法实现:
+  $( selector ).DataTable();
+  $( selector ).dataTable().api();
+  new $.fn.dataTable.Api( selector );
+  主要是要注意$( selector ).DataTable()与$( selector ).dataTable()两者之间的区别.前者返回一个datatable中API实例,而后者返回一个jQuery对象.一个api()方法添加到jQuery对象,这样你可以很轻松地访问API. 但是jQuery对象可以用于操纵表节点,与任何其他jQuery实例一样(像addClass()).
+
+10.dataTable row selector
+  > by index (integer) - DataTables stores each row internally with a row index
+  > by #ID   (string)
+  > by node  (DOM elements) -  This can be useful for getting data from a row, or performing other row based operations, when you have only the DOM node for reference
+    > example: <a></a> element in <td></td> in <tr>
+      $('a[name="btn_email"]').each(function(){
+        $(this).click(function(){
+          var obj = currentTbl.api().row($(this).parent().parent()).data();
+          ...
+        });
+      });
