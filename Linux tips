@@ -1,2 +1,5 @@
 1. show ip of machine
   ip addr show
+2. kill process by port
+  sudo lsof -i tcp:8099
+  sudo kill -9 [pid]
