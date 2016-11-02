@@ -3,3 +3,8 @@
 2. kill process by port
   sudo lsof -i tcp:8099
   sudo kill -9 [pid]
+3. show public ip
+  > curl ipecho.net/plain; echo
+    xxx.xxx.xxx.xxx
+  > dig +short myip.opendns.com @resolver1.opendns.com
+    xxx.xxx.xxx.xxx
