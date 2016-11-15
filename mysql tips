@@ -22,3 +22,8 @@ mysqldump -u root -p xxdb > /path/to/sql/xxdb_backup.sql
 3.MYSQLWorkbench
 
 a useful tool
+
+4.Duplicating a MySQL table, indexes and data
+
+CREATE TABLE `newtable` LIKE `oldtable`; 
+INSERT INTO `newtable` SELECT * FROM `oldtable`;
