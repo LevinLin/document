@@ -151,3 +151,7 @@
     > Each file has a file block containing all Go source text in that file.
     > Each "if", "for", and "switch" statement is considered to be in its own implicit block.
     > Each clause in a "switch" or "select" statement acts as an implicit block.
+    
+8. issue of ParseForm()
+  > http://stackoverflow.com/questions/16896430/golang-http-server-cant-get-post-value
+  > If you make multipart/form-data POST request, ParseForm does not parse request body correctly (this might be a bug). So, use ParseMultipartForm if that is the case.
