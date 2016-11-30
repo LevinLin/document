@@ -186,3 +186,89 @@
           ...
         });
       });
+11.convert string to number
+  > Number("3.14")    // 返回 3.14
+  > Number(" ")       // 返回 0 
+  > Number("")        // 返回 0
+  > Number("99 88")   // 返回 NaN
+  
+ 12.set element to display or not
+  > $("#id").css('display','none'); 
+  > $("#id").show(); 
+  
+ 13.dynamically add/remove element of same type
+  > link: http://jsfiddle.net/aaki/hMJEy/1/
+  > real example:
+    HTML:
+    <div id="multi-field-wrapper" class="form-group form-group-sm" style="display:none">
+        <label class="col-sm-3 control-label">UIDs:</label>
+        <div id="multi-fields" class="col-sm-9">
+            <div class="multi-field">
+                <input type="text" style="width:30%;" class="form-control" id="uids0" name='uids[]' placeholder="enter uid" >
+                <a href="#" class="remove-field">Remove</a>
+            </div>  
+            <a href="#" class="add-field">Add UID</a>    
+        </div>
+    </div>
+    
+    JS:
+    (1) bind click action
+    var counter=1;
+    $('#multi-field-wrapper').each(function() {
+        var $wrapper = $('#multi-fields', this);
+        $(".add-field", $(this)).click(function(e) {
+            $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').attr("id","uids"+counter).val('').focus().parent('.multi-field').find('a').show();         
+            counter++;
+        });
+        $('.multi-field .remove-field', $wrapper).click(function() {
+            if ($('.multi-field', $wrapper).length > 1) {
+                if ($(this).parent('.multi-field').find('input').attr("id") != "uids0") {
+                    $(this).parent('.multi-field').remove();
+                } else {
+                    var val_to_keep = new Array();
+                    var last_field_id = 1;
+                    var tmp = '';
+                    var field_id = '';
+                    var index = 0;
+                    $(".multi-field").each(function() {
+                        field_id = $(this).find('input').attr("id");
+                        if (field_id != "uids0") {
+                            val_to_keep.push($(this).find('input').val());
+                            tmp = field_id.split("uids");
+                            if (Number(tmp[1]) > last_field_id) {
+                                last_field_id = Number(tmp[1]);
+                            }
+                        }
+                    });
+
+                    $(".multi-field").each(function() {
+                        if ($(this).find('input').attr("id") == "uids"+last_field_id) {
+                            $(this).remove();
+                        } else {
+                            $(this).find('input').val(val_to_keep[index]);
+                            index++;
+                        }
+                    });
+                }
+            }
+        });
+    });
+    (2) render elements using data from server
+    //arrayUID is data from server
+    $('#uids0').val(arrayUID[0]);
+    var len = arrayUID.length;
+    //remove elements except the 1st one
+    if ($('.multi-field').length > 1) {
+        $(".multi-field").each(function() {
+            if ($(this).find('input').attr("id") != "uids0") {
+                $(this).remove();
+            }
+        });
+    }
+    //dynamically add elements according to data by coloning first element
+    if(len > 1) {
+        for (var i = 1; i < len; i++) {
+            $('.multi-field:first-child').clone(true).appendTo('#multi-fields').find('input').attr("id","uids"+i).val(arrayUID[i]).focus().parent('.multi-field').find('a').show();   
+        };
+    }
+    counter=len;
