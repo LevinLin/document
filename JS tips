@@ -192,11 +192,11 @@
   > Number("")        // 返回 0
   > Number("99 88")   // 返回 NaN
   
- 12.set element to display or not
+12.set element to display or not
   > $("#id").css('display','none'); 
   > $("#id").show(); 
   
- 13.dynamically add/remove element of same type
+13.dynamically add/remove element of same type
   > link: http://jsfiddle.net/aaki/hMJEy/1/
   > real example:
     HTML:
@@ -204,11 +204,13 @@
         <label class="col-sm-3 control-label">UIDs:</label>
         <div id="multi-fields" class="col-sm-9">
             <div class="multi-field">
-                <input type="text" style="width:30%;" class="form-control" id="uids0" name='uids[]' placeholder="enter uid" >
+                <input type="text" style="width:30%;" class="form-control" id="uids0" name='uids[]' placeholder="enter uid">
                 <a href="#" class="remove-field">Remove</a>
-            </div>  
-            <a href="#" class="add-field">Add UID</a>    
+            </div>   
         </div>
+            
+        <div class="col-sm-3"></div>
+        <div class="col-sm-9"><a href="#" class="add-field">Add UID</a></div>
     </div>
     
     JS:
@@ -272,3 +274,5 @@
         };
     }
     counter=len;
+14. replace()
+  > var a = "a,b,d,f,g,s";a = a.replace("b,", "");
