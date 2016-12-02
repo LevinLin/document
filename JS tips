@@ -274,5 +274,45 @@
         };
     }
     counter=len;
-14. replace()
+    
+14.replace()
   > var a = "a,b,d,f,g,s";a = a.replace("b,", "");
+  
+15.bootstrap iswitch
+  > HTML
+  <input name="switch"  type="checkbox"  rpid="xxx" />
+  
+  > JS
+  <link rel="stylesheet" href="path/to/css/bootstrap-switch.min.css">
+  <script type="text/javascript" src="path/to/js/bootstrap-switch.js"></script>
+  
+  //initialization
+  function iniSwitch(){
+    $('[name="switch"]').bootstrapSwitch({
+        size:'mini',
+        onText:'YES',
+        onColor:'success',
+        offText:'NO'
+    });
+    $("[class^='bootstrap-switch']").bind("click",function(event){
+        event.stopPropagation();
+    });
+
+    $('[name="switch"]').on('switchChange.bootstrapSwitch', function(event, value) {
+        var rpid=$(this).attr('rpid');
+        $(this).bootstrapSwitch('toggleReadonly');
+        var obj=$(this);
+        $(this).parent().parent().parent().append('<span name="loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+
+        $.post('http://something/to/request/value', {}, function(data){
+            if(data.error){
+                alert(data.error);
+            }else{
+                obj.bootstrapSwitch('toggleReadonly');
+                obj.parent().parent().parent().find('[name="loading"]').remove();
+                tbl_role.fnDraw();
+            }
+        },'json');
+    });
+  }
+  
