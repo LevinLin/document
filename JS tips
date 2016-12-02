@@ -279,6 +279,9 @@
   > var a = "a,b,d,f,g,s";a = a.replace("b,", "");
   
 15.bootstrap iswitch
+  > LINK
+  http://www.bootcss.com/p/bootstrap-switch/
+  
   > HTML
   <input name="switch"  type="checkbox"  rpid="xxx" />
   
