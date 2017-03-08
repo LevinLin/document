@@ -423,3 +423,8 @@
             return this;
         };
     }( jQuery ));
+17. render select options
+    $("#select_id option").each(function(){ 
+        $(this).prop('selected', false); 
+    });
+    $('#select_id option[value="'+option_value_needed+'"]').prop('selected','true');
