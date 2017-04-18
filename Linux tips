@@ -17,4 +17,6 @@
 
     Check the updated rules with:
     $ firewall-cmd --list-all  
+5. check CentOS release version
+  cat /etc/redhat-release
   
