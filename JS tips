@@ -428,3 +428,11 @@
         $(this).prop('selected', false); 
     });
     $('#select_id option[value="'+option_value_needed+'"]').prop('selected','true');
+    
+18. Making wide table fit bootstrap container
+    add this:
+    
+    table {
+        table-layout: fixed;
+        word-wrap: break-word;
+    }
