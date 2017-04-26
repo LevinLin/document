@@ -423,6 +423,25 @@
             return this;
         };
     }( jQuery ));
+    
+  [note]
+  in case that tab-pane activation doesn't work properly, add these logic:
+  $(document).ready(function(){
+      ...
+      $('.nav-tabs a').click(function (e) {
+          $(this).tab('show');
+          var scrollmem = $('body').scrollTop();
+          window.location.hash = this.hash;
+
+          // tab-pane doesn't work, so we hack it here
+          $('.tab-pane.active').removeClass('active');
+          $(this.hash + '.tab-pane').addClass('active');
+
+          $('html,body').scrollTop(scrollmem);
+      });
+      ...
+  });
+  
 17. render select options
     $("#select_id option").each(function(){ 
         $(this).prop('selected', false); 
@@ -436,3 +455,6 @@
         table-layout: fixed;
         word-wrap: break-word;
     }
+    
+19. dataTable specify table column with fixed width
+    "aoColumns": [ { "sWidth": "20%" }, ...]
