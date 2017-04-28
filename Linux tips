@@ -20,3 +20,10 @@
 5. check CentOS release version
   cat /etc/redhat-release
   
+6. ftp tips
+   > ftp {user}@{host}
+   > cd
+   > ls
+   > promot (disable interative model)
+     mget *.* (download all files to current local directory)
+  
