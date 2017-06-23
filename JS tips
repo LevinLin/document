@@ -458,3 +458,9 @@
     
 19. dataTable specify table column with fixed width
     "aoColumns": [ { "sWidth": "20%" }, ...]
+    
+20. banner slider
+    > basing on FadeIn-FadeOut
+    https://jsfiddle.net/levinlin/awwbv0sq/
+    > basing on sliding
+    https://jsfiddle.net/levinlin/fey8ojn2/
