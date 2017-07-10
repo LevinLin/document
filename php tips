@@ -140,3 +140,23 @@
         $arr = array("Hello" => "Hi", "world" => "earth");
         echo strtr("Hello world",$arr);
     ?>
+7.  curl 错误处理
+  症状：php curl调用https出错
+  排查方法：在命令行中使用curl调用试试。
+  原因：服务器所在机房无法验证SSL证书。
+  解决办法：跳过SSL证书检查。
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  症状：php curl调用curl_exec返回bool(false)，命令行curl调用正常。
+  排查方法：
+      var_dump(curl_error($ch));
+  返回：
+      string(23) "Empty reply from server"
+  再排查：
+      curl_setopt($ch, CURLOPT_HEADER, true);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+  返回：
+      HTTP/1.1 100 Continue
+      Connection: close
+  原因：php curl接收到HTTP 100就结束了，应该继续接收HTTP 200
+  解决方案：
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
