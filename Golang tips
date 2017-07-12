@@ -155,3 +155,12 @@
 8. issue of ParseForm()
   > http://stackoverflow.com/questions/16896430/golang-http-server-cant-get-post-value
   > If you make multipart/form-data POST request, ParseForm does not parse request body correctly (this might be a bug). So, use ParseMultipartForm if that is the case.
+
+9. fix LiteIDE autocompletement problem
+  > For me gocode (autocomplete) broke in LiteIDE after updating Go to the latest version.
+  > What I did was make sure GOPATH was set correct. Then install gocode:
+  > go get -u github.com/nsf/gocode
+  > Then remove the gocode version from the liteide/bin/ folder, because else LiteIDE will use its own version (I only renamed it just in case).
+  > Now when you boot LiteIDE it should say
+    GolangCode: Found gocode at <YOUR GOPATH>/bin/gocode
+  > instead of LiteIDE using its own version.
