@@ -1,0 +1,5 @@
+Here’s how to capture full page screenshot using Command Menu:
+
+1. Open Chrome’s DevTools
+2. Press Control+Shift+P in Windows & Linux or Command+Shift+P in Mac to open the Command Menu.
+3. Start typing screenshot and select Capture full size screenshot. That’s it.
