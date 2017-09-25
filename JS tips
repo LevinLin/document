@@ -470,3 +470,6 @@
     > var message = "    abc def     \r\n  ";
       document.write("[" + message.trim() + "]");
       //  [abc def]
+
+22. show new line in textarea
+    > s = s.replace(/\\n/g, String.fromCharCode(13, 10))
