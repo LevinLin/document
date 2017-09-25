@@ -464,3 +464,9 @@
     https://jsfiddle.net/levinlin/awwbv0sq/
     > basing on sliding
     https://jsfiddle.net/levinlin/fey8ojn2/
+    
+21. trim
+    > stringObj.trim()
+    > var message = "    abc def     \r\n  ";
+      document.write("[" + message.trim() + "]");
+      //  [abc def]
