@@ -40,5 +40,7 @@
          DeflateCompressionLevel 9
          #设置对文件是文本的内容进行压缩，例如text/html text/css text/plain等
          AddOutputFilterByType DEFLATE text/*
+         #设置不对exe，tgz，gz。。。的文件进行压缩
+         SetEnvIfNoCase Request_URI .(?:exe|t?gz|zip|bz2|sit|rar)$ no-gzip dont-vary 
          AddOutputFilter DEFLATE image/jpeg
       </IfModule>
