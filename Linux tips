@@ -44,3 +44,21 @@
          SetEnvIfNoCase Request_URI .(?:exe|t?gz|zip|bz2|sit|rar)$ no-gzip dont-vary 
          AddOutputFilter DEFLATE image/jpeg
       </IfModule>
+  
+  8. Find out current working directory of a running process
+     > from link: https://unix.stackexchange.com/questions/94357/find-out-current-working-directory-of-a-running-process
+     > example:
+       1. get pid
+          $ ps -aux | grep php
+          root      1234  0.0  0.0  56789  2345 ?        Ss   Jun26   6:38 php-fpm: master process...
+       2. get installation path
+          (1) readlink -e /proc/<PID>/cwd
+              $ readlink -e /proc/1234/cwd
+              /usr/local/services/php-fpm-5.3.6/bin
+          (2) pwdx <PID>
+              $ pwdx 1234                 
+              1234: /usr/local/services/php-fpm-5.3.6/bin
+          (3) lsof -p <PID> | grep cwd
+              $ lsof -p 1234 | grep cwd
+              php-fpm 1234 root  cwd    DIR              253,1     4096    172275 /usr/local/services/php-fpm-5.3.6/bin
+          
