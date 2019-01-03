@@ -27,3 +27,31 @@ a useful tool
 
 CREATE TABLE `newtable` LIKE `oldtable`; 
 INSERT INTO `newtable` SELECT * FROM `oldtable`;
+
+5.装完mysql后启动mysql发现启动不了，错误日志里面会提示Table ‘mysql.plugin’ doesn’t exist，出现此错误的原因有两种。
+一种是装完mysql之后没有运行初始化mysql系统数据库的脚本，如果是这种情况，要先做脚本的初始化，方法如下：
+/usr/local/mysql/scripts/mysql_install_db \
+--defaults-file=/var/mysql/my.cnf \
+--basedir=/usr/local/mysql \
+--datadir=/var/mysql/data \
+--user=mysql
+上面脚本中的/usr/local/mysql/要修改成你安装mysql的路径。
+
+另外一种情况是在编译安装mysql时，没有指定innodb存储引擎，对于这种情况，需要重新指定选项编译安装：
+脚本如下：
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+-DMYSQL_UNIX_ADDR=/tmp/mysql.sock \
+-DDEFAULT_CHARSET=utf8 \
+-DDEFAULT_COLLATION=utf8_general_ci \
+-DWITH_EXTRA_CHARSETS=all \
+-DWITH_MYISAM_STORAGE_ENGINE=1 \
+-DWITH_INNOBASE_STORAGE_ENGINE=1 \
+-DWITH_MEMORY_STORAGE_ENGINE=1 \
+-DWITH_READLINE=1 \
+-DENABLED_LOCAL_INFILE=1 \
+-DMYSQL_DATADIR=/var/mysql/data \
+-DMYSQL_USER=mysql
+
+make
+make install
